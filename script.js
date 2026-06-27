@@ -7,7 +7,7 @@ const soundButton = document.getElementById("sound");
 const messages = {
   window: {
     title: "窓の外へ",
-    text: "今日はまだ、海を眺めるだけ。\nそのうち、この窓からリスボンやモロッコや、まだ名前のない場所へ出かけられるようになります。"
+    text: "今日はまだ、海を眺めるだけ。\nそのうち、この窓から、まだ名前のない場所へ出かけられるようになります。"
   },
   book: {
     title: "今日のことば",
@@ -19,7 +19,7 @@ const messages = {
   },
   plant: {
     title: "ティネケ",
-    text: "窓辺のティネケ。\n白と緑の葉っぱが、部屋に少しだけ余白をつくっています。"
+    text: "窓辺のティネケ。\n白と緑の葉っぱが、ほんのりピンクに色づいてかわいい。"
   }
 };
 
