@@ -1,0 +1,170 @@
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: "Hiragino Sans", "Yu Gothic", system-ui, sans-serif;
+  color: #314446;
+  background: #f7f4ec;
+}
+
+.base {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #f7f4ec;
+}
+
+.room-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hotspot {
+  position: absolute;
+  border: none;
+  background: rgba(255,255,255,0);
+  cursor: pointer;
+  border-radius: 18px;
+}
+
+.hotspot:hover {
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(1px);
+}
+
+.window {
+  left: 14%;
+  top: 6%;
+  width: 64%;
+  height: 60%;
+}
+
+.book {
+  left: 56%;
+  top: 68%;
+  width: 12%;
+  height: 8%;
+}
+
+.mug {
+  left: 58%;
+  top: 59%;
+  width: 7%;
+  height: 8%;
+}
+
+.plant {
+  left: 1%;
+  top: 28%;
+  width: 20%;
+  height: 44%;
+}
+
+.title {
+  position: absolute;
+  left: 34px;
+  top: 30px;
+  padding: 18px 22px;
+  border-radius: 24px;
+  background: rgba(255,255,255,.52);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 12px 36px rgba(60,80,80,.10);
+}
+
+.title h1 {
+  margin: 0 0 6px;
+  font-size: clamp(24px, 3vw, 42px);
+  letter-spacing: .05em;
+}
+
+.title p {
+  margin: 0;
+  font-size: 14px;
+  opacity: .75;
+}
+
+.sound {
+  position: absolute;
+  right: 28px;
+  bottom: 24px;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: rgba(255,255,255,.7);
+  color: #314446;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 32px rgba(60,80,80,.12);
+  cursor: pointer;
+}
+
+.panel {
+  position: absolute;
+  right: 32px;
+  top: 96px;
+  width: min(360px, calc(100vw - 64px));
+  padding: 28px;
+  border-radius: 28px;
+  background: rgba(255,255,255,.78);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 24px 70px rgba(50,70,75,.18);
+  display: none;
+}
+
+.panel.open {
+  display: block;
+}
+
+.panel h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.panel p {
+  margin: 0;
+  line-height: 2;
+  font-size: 15px;
+  white-space: pre-line;
+}
+
+.close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: transparent;
+  font-size: 26px;
+  cursor: pointer;
+  color: #607173;
+}
+
+@media (max-width: 800px) {
+  .title {
+    left: 18px;
+    top: 18px;
+    padding: 14px 16px;
+  }
+
+  .title h1 {
+    font-size: 24px;
+  }
+
+  .window {
+    left: 5%;
+    top: 9%;
+    width: 90%;
+    height: 50%;
+  }
+
+  .plant {
+    left: 0;
+    top: 31%;
+    width: 28%;
+    height: 34%;
+  }
+}
