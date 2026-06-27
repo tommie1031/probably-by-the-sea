@@ -68,25 +68,32 @@ html, body {
 
 .title {
   position: absolute;
-  left: 34px;
-  top: 30px;
-  padding: 18px 22px;
-  border-radius: 24px;
-  background: rgba(255,255,255,.52);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 12px 36px rgba(60,80,80,.10);
+  left: 32px;
+  top: 28px;
+  padding: 20px 28px 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(60, 80, 80, 0.08);
+  max-width: 490px;
 }
 
 .title h1 {
-  margin: 0 0 6px;
-  font-size: clamp(24px, 3vw, 42px);
-  letter-spacing: .05em;
+  margin: 0 0 10px;
+  font-size: clamp(28px, 3.2vw, 58px);
+  letter-spacing: 0.04em;
+  line-height: 1.08;
+  font-weight: 600;
+  color: #314446;
 }
 
 .title p {
   margin: 0;
-  font-size: 14px;
-  opacity: .75;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  opacity: 0.72;
+  color: #516466;
 }
 
 .sound {
@@ -95,12 +102,19 @@ html, body {
   bottom: 24px;
   border: none;
   border-radius: 999px;
-  padding: 12px 18px;
-  background: rgba(255,255,255,.7);
+  padding: 11px 16px;
+  background: rgba(255, 255, 255, 0.55);
   color: #314446;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 12px 32px rgba(60,80,80,.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 24px rgba(60, 80, 80, 0.10);
   cursor: pointer;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+}
+
+.sound:hover {
+  background: rgba(255, 255, 255, 0.68);
 }
 
 .panel {
