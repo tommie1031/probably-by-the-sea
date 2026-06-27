@@ -49,93 +49,26 @@ closeButton.addEventListener("click", () => {
   panel.setAttribute("aria-hidden", "true");
 });
 
-// 波の音：仮実装
+// 波の音：アップロードした音源を再生
+const waveAudio = new Audio("waves.mp3");
+waveAudio.loop = true;
+waveAudio.volume = 0.45;
+
 let soundOn = false;
-let audioContext = null;
-let noiseSource = null;
-let gainNode = null;
-let filterNode = null;
-let lfo = null;
-let lfoGain = null;
 
-function createNoiseBuffer(context) {
-  const bufferSize = context.sampleRate * 3;
-  const buffer = context.createBuffer(1, bufferSize, context.sampleRate);
-  const data = buffer.getChannelData(0);
-
-  for (let i = 0; i < bufferSize; i++) {
-    data[i] = Math.random() * 2 - 1;
-  }
-
-  return buffer;
-}
-
-function startWaveSound() {
-  audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-  const noiseBuffer = createNoiseBuffer(audioContext);
-
-  noiseSource = audioContext.createBufferSource();
-  noiseSource.buffer = noiseBuffer;
-  noiseSource.loop = true;
-
-  filterNode = audioContext.createBiquadFilter();
-  filterNode.type = "lowpass";
-  filterNode.frequency.value = 750;
-  filterNode.Q.value = 0.8;
-
-  gainNode = audioContext.createGain();
-  gainNode.gain.value = 0.055;
-
-  lfo = audioContext.createOscillator();
-  lfo.type = "sine";
-  lfo.frequency.value = 0.09;
-
-  lfoGain = audioContext.createGain();
-  lfoGain.gain.value = 0.04;
-
-  lfo.connect(lfoGain);
-  lfoGain.connect(gainNode.gain);
-
-  noiseSource.connect(filterNode);
-  filterNode.connect(gainNode);
-  gainNode.connect(audioContext.destination);
-
-  noiseSource.start();
-  lfo.start();
-}
-
-function stopWaveSound() {
-  if (noiseSource) {
-    noiseSource.stop();
-    noiseSource.disconnect();
-  }
-
-  if (lfo) {
-    lfo.stop();
-    lfo.disconnect();
-  }
-
-  if (audioContext) {
-    audioContext.close();
-  }
-
-  audioContext = null;
-  noiseSource = null;
-  gainNode = null;
-  filterNode = null;
-  lfo = null;
-  lfoGain = null;
-}
-
-soundButton.addEventListener("click", () => {
-  soundOn = !soundOn;
-
-  if (soundOn) {
-    startWaveSound();
-    soundButton.textContent = "波の音：ON";
+soundButton.addEventListener("click", async () => {
+  if (!soundOn) {
+    try {
+      await waveAudio.play();
+      soundOn = true;
+      soundButton.textContent = "波の音：ON";
+    } catch (error) {
+      console.error(error);
+      alert("音声を再生できませんでした。音源ファイル waves.mp3 がアップロードされているか確認してください。");
+    }
   } else {
-    stopWaveSound();
+    waveAudio.pause();
+    soundOn = false;
     soundButton.textContent = "波の音：OFF";
   }
 });
