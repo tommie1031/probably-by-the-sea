@@ -49,8 +49,93 @@ closeButton.addEventListener("click", () => {
   panel.setAttribute("aria-hidden", "true");
 });
 
+// 波の音：仮実装
 let soundOn = false;
+let audioContext = null;
+let noiseSource = null;
+let gainNode = null;
+let filterNode = null;
+let lfo = null;
+let lfoGain = null;
+
+function createNoiseBuffer(context) {
+  const bufferSize = context.sampleRate * 3;
+  const buffer = context.createBuffer(1, bufferSize, context.sampleRate);
+  const data = buffer.getChannelData(0);
+
+  for (let i = 0; i < bufferSize; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+
+  return buffer;
+}
+
+function startWaveSound() {
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+  const noiseBuffer = createNoiseBuffer(audioContext);
+
+  noiseSource = audioContext.createBufferSource();
+  noiseSource.buffer = noiseBuffer;
+  noiseSource.loop = true;
+
+  filterNode = audioContext.createBiquadFilter();
+  filterNode.type = "lowpass";
+  filterNode.frequency.value = 750;
+  filterNode.Q.value = 0.8;
+
+  gainNode = audioContext.createGain();
+  gainNode.gain.value = 0.055;
+
+  lfo = audioContext.createOscillator();
+  lfo.type = "sine";
+  lfo.frequency.value = 0.09;
+
+  lfoGain = audioContext.createGain();
+  lfoGain.gain.value = 0.04;
+
+  lfo.connect(lfoGain);
+  lfoGain.connect(gainNode.gain);
+
+  noiseSource.connect(filterNode);
+  filterNode.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+
+  noiseSource.start();
+  lfo.start();
+}
+
+function stopWaveSound() {
+  if (noiseSource) {
+    noiseSource.stop();
+    noiseSource.disconnect();
+  }
+
+  if (lfo) {
+    lfo.stop();
+    lfo.disconnect();
+  }
+
+  if (audioContext) {
+    audioContext.close();
+  }
+
+  audioContext = null;
+  noiseSource = null;
+  gainNode = null;
+  filterNode = null;
+  lfo = null;
+  lfoGain = null;
+}
+
 soundButton.addEventListener("click", () => {
   soundOn = !soundOn;
-  soundButton.textContent = soundOn ? "波の音：ON（仮）" : "波の音：OFF";
+
+  if (soundOn) {
+    startWaveSound();
+    soundButton.textContent = "波の音：ON";
+  } else {
+    stopWaveSound();
+    soundButton.textContent = "波の音：OFF";
+  }
 });
